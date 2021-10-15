@@ -13,7 +13,7 @@ def run():
             option = webdriver.ChromeOptions()
             option.add_argument("--headless")
             option.add_argument("--disable-gpu")
-            driver = webdriver.Chrome(executable_path=init.drive_path, option=option)
+            driver = webdriver.Chrome(executable_path=init.drive_path, options=option)
             driver.get('http://cas.bjfu.edu.cn/cas/login')
             driver.find_element_by_id('un').send_keys(user[0])
             driver.find_element_by_id('pd').send_keys(user[1])
