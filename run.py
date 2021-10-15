@@ -25,5 +25,5 @@ for us in ls_2:
 if init.mail_sw == 1:
     mail.send_mail(content)
 tm = datetime.datetime.now().strftime("%m-%d %H:%M:%S")
-with codecs.open("log.log", "w+", "utf-8") as f:
+with codecs.open("log.log", "a+", "utf-8") as f:
     f.write(tm + '\n' + content)
