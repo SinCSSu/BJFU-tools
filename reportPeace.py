@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException, UnexpectedAlertPresentException
 import time
 import init
 
@@ -23,6 +24,8 @@ def run():
             driver.find_element_by_xpath("//button[@id='commit']").click()
             driver.quit()
             result.append((user[0], 1))
-        except:
+        except TimeoutException:
             result.append((user[0], 0))
+        except UnexpectedAlertPresentException:
+            result.append((user[0], -1))
     return result

@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 import datetime
 import init
 
@@ -66,6 +67,6 @@ def run():
             driver.find_element_by_xpath("//button[@id='commit']").click()
             driver.quit()
             result.append((user[0], 1))
-        except:
+        except TimeoutException:
             result.append((user[0], 0))
     return result
