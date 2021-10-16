@@ -29,5 +29,5 @@ def run():
         except UnexpectedAlertPresentException:
             result.append((user[0], -1))
         except Exception as e:
-            result.append((user, e))
+            result.append((user[0], e))
     return result
