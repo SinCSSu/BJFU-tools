@@ -69,4 +69,6 @@ def run():
             result.append((user[0], 1))
         except TimeoutException:
             result.append((user[0], 0))
+        except Exception as e:
+            result.append((user, e))
     return result
