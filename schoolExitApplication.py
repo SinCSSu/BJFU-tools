@@ -5,7 +5,11 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 import datetime
 import init
+import time
+import os
 
+
+root_path = os.getcwd()
 
 def run():
     result = []
@@ -14,7 +18,8 @@ def run():
             option = webdriver.ChromeOptions()
             option.add_argument("--headless")
             option.add_argument("--disable-gpu")
-            driver = webdriver.Chrome(executable_path=init.drive_path, options=option)
+            driver = webdriver.Chrome(
+                executable_path=init.driver_path, options=option)
             driver.get('http://cas.bjfu.edu.cn/cas/login')
             driver.find_element_by_id('un').send_keys(user[0])
             driver.find_element_by_id('pd').send_keys(user[1])
@@ -24,10 +29,18 @@ def run():
             windows = driver.window_handles
             driver.switch_to.window(windows[-1])
             locator = (By.XPATH, "//a[text()='确定']")
-            WebDriverWait(driver, 4).until(EC.presence_of_element_located(locator))
+            WebDriverWait(driver, 4).until(
+                EC.presence_of_element_located(locator))
             driver.find_element_by_xpath("//a[text()='确定']").click()
-            driver.switch_to.frame(driver.find_element_by_xpath('//iframe[@id="formIframe"]'))
+            driver.switch_to.frame(driver.find_element_by_xpath(
+                '//iframe[@id="formIframe"]'))
             driver.find_element_by_xpath("//input[@id='QTSY']").send_keys("吃饭")
+            driver.find_element_by_xpath(
+                "//input[@id='btn_uploader_2']").send_keys("{}/upload.jpg".format(root_path))
+            time.sleep(5)
+            driver.find_element_by_xpath(
+                "//input[@id='btn_uploader_3']").send_keys("{}/upload.jpg".format(root_path))
+            time.sleep(5)
             driver.find_element_by_xpath("//button[@data-id='CXLB']").click()
             driver.find_element_by_xpath(
                 "//button[@data-id='CXLB']/..//ul[@class='dropdown-menu inner selectpicker']/li[@rel='1']").find_element_by_tag_name(
@@ -67,8 +80,6 @@ def run():
             driver.find_element_by_xpath("//button[@id='commit']").click()
             driver.quit()
             result.append((user[0], 1))
-        except TimeoutException:
-            result.append((user[0], 0))
         except Exception as e:
             result.append((user[0], e))
     return result

@@ -1,7 +1,7 @@
 internet_account = ()
 school_exit_application_users = []
 report_peace_users = []
-drive_path = ''
+driver_path = ""
 mail_sw = 1
 mail_host = ''
 mail_user = ''
